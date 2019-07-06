@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        localizacion();
+        localizacion();
 //        listaProviders();
 //        listaProviders();
 //        mejorCriterio();
-        estadoGPS();
-//        registrarLocalizacion();
+//        estadoGPS();
+        registrarLocalizacion();
     }
 
     private void localizacion() {
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         if (ubicacion != null) {
             Log.d("Latitud", String.valueOf(loc.getLatitude()));
             Log.d("Longitud", String.valueOf(loc.getLongitude()));
-            longitud.setText("LONGITUD: " + String.valueOf(loc.getLongitude()));
-            latitud.setText("LATITUD: " + String.valueOf(loc.getLatitude()));
+//            longitud.setText("LONGITUD: " + String.valueOf(loc.getLongitude()));
+//            latitud.setText("LATITUD: " + String.valueOf(loc.getLatitude()));
         }
     }
 
@@ -85,37 +85,40 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-//    private void registrarLocalizacion() {
-//        ubicacion = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            return;
-//        }
-//        ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, new miLocalizacionListener());
-//    }
-//
-//    private class miLocalizacionListener implements LocationListener{
-//
-//        @Override
-//        public void onLocationChanged(Location location) {
-//
-//            String lat =
-//
-//        }
-//
-//        @Override
-//        public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//        }
-//
-//        @Override
-//        public void onProviderEnabled(String provider) {
-//
-//        }
-//
-//        @Override
-//        public void onProviderDisabled(String provider) {
-//
-//        }
-//    }
+    private void registrarLocalizacion() {
+        ubicacion = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, new miLocalizacionListener());
+    }
+
+    private class miLocalizacionListener implements LocationListener{
+
+        @Override
+        public void onLocationChanged(Location location) {
+
+            String lat = "Mi latitud es: " + location.getLatitude();
+            String lon = "Mi longitud es: " + location.getLongitude();
+            latitud.setText(lat);
+            longitud.setText(lon);
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    }
 
 }
